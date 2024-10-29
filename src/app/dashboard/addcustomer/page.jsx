@@ -16,10 +16,10 @@ const AddCustomer = () => {
   } = useForm();
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data);
-
-    const resp = await axios;
-
+    
+    const resp = await axios.post("http://localhost:3000/api/dashboard/addcustomer", data);
+    console.log(resp);
+    
     if (resp.error) {
       setError(resp.error);
     } else {
@@ -146,24 +146,23 @@ const AddCustomer = () => {
           <label htmlFor="type_client">Tipo de cliente</label>
           <select
             className="text-black"
-            {...register("type_client", {
+            {...register("type_client_id", {
               required: {
                 value: true,
                 message: "Campo requerido",
               },
             })}
           >
-            <option selected disabled>
-              {" "}
-              -Elegir-{" "}
+            <option  disabled defaultValue={'DEFAULT'}>
+              -Elegir-
             </option>
-            <option value="0">Préstamo</option>
-            <option value="1">Financiación</option>
-            <option value="2">Inversor</option>
+            <option value="1">Préstamo</option>
+            <option value="2">Financiación</option>
+            <option value="3">Inversor</option>
           </select>
-          {errors.type_client && (
+          {errors.type_client_id && (
             <span className="text-sm text-red-600">
-              *{errors.type_client.message}
+              *{errors.type_client_id.message}
             </span>
           )}
 
